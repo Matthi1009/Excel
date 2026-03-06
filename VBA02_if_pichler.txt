@@ -1,0 +1,116 @@
+Option Explicit
+
+Sub Task0()
+    Range("A1").Value = ("VBA-IF-Anweisung")
+     Range("A1").Font.Color = rgbBlue
+    Range("A1").Font.Size = 18
+    Range("A1").Interior.Color = RGB(255, 0, 0)
+    Range("A1").Font.Name = "Aharoni"
+    Range("A1").ColumnWidth = 30
+    
+
+End Sub
+
+Sub Task1()
+    Dim passwort As String
+    passwort = "abc123"
+    
+    Dim myInput As String
+    myInput = InputBox("Geben sie das Passwort ein: ")
+    
+    If myInput = passwort Then
+        MsgBox ("Zugriff gewährt")
+    Else
+        MsgBox "Falsches Passwort", vbCritical
+    End If
+
+End Sub
+
+Sub Task2()
+    Dim myInput2 As Integer
+    myInput2 = InputBox("Geben sie eine Zahl ein: ")
+    Range("A3").Value = myInput2
+    
+    If myInput2 < 0 Then
+        Range("A3").Interior.Color = RGB(255, 0, 0)
+    ElseIf myInput2 > 0 Then
+        Range("A3").Interior.Color = RGB(0, 255, 0)
+    Else
+        Range("A3").Interior.Color = RGB(255, 255, 255)
+    End If
+    
+
+End Sub
+
+Sub Task3()
+    Dim Category As String
+    
+    Category = InputBox("Welche Kategorie: ")
+    
+    If Category = "Elektronik" And Range("F3").Value > 500 Then
+        Range("G3").Value = (Range("F3").Value * 0.15) + Range("F3").Value
+        MsgBox "15% Rabatt", vbInformation
+    ElseIf Category = "Elektronik" And Range("F3").Value > 200 Then
+        Range("G3").Value = (Range("F3").Value * 0.1) + Range("F3").Value
+        MsgBox "10% Rabatt", vbInformation
+    ElseIf Category = "Bücher" And Range("F3").Value > 50 Or Category = "Spielzeug" And Range("F3").Value > 50 Then
+         Range("G3").Value = (Range("F3").Value * 0.5) + Range("F3").Value
+         MsgBox "5% Rabatt", vbInformation
+    Else
+        Range("G3").Value = Range("F3").Value
+        MsgBox "Kein Rabatt", vbInformation
+    End If
+        
+End Sub
+
+Sub Task4()
+
+    Dim answer As VbMsgBoxResult
+
+    answer = MsgBox("Möchten Sie wirklich alle Daten in Spalte H löschen?", vbOKCancel + vbExclamation, "Warnung")
+
+    If answer = vbOK Then
+        Columns("H").ClearContents
+        MsgBox "Alle Daten aus Spalte H wurden erfolgreich gelöscht.", vbInformation, "Löschen abgeschlossen"
+    Else
+        MsgBox "Der Löschvorgang wurde abgebrochen.", vbInformation, "Abgebrochen"
+    End If
+
+End Sub
+
+Sub Task5()
+    Dim netAmount As Double
+    Dim taxRate As Double
+    Dim taxAmount As Double
+    Dim grossAmount As Double
+    Dim company As VbMsgBoxResult
+    Dim country As String
+
+    netAmount = CDbl(InputBox("Bitte geben Sie den Netto-Betrag ein:", "Netto-Betrag"))
+    company = MsgBox("Kaufen Sie als Unternehmen ein?", vbYesNo, "Unternehmen")
+    
+
+    If company = vbYes Then
+        taxRate = 0
+    Else
+        country = InputBox("In welchem Land befinden Sie sich? (AT oder DE): ", "Land")
+
+        If country = "AT" Then
+            taxRate = 0.2
+        Else
+            taxRate = 0.19
+        End If
+    End If
+
+
+    taxAmount = netAmount * taxRate
+    grossAmount = netAmount + taxAmount
+
+    MsgBox "Netto-Betrag: " & netAmount & "€" & Chr(13) & _
+       "Steuersatz: " & taxRate * 100 & " %" & Chr(13) & _
+       "Steuerbetrag: " & taxAmount & "€" & Chr(13) & _
+       "Brutto-Betrag: " & grossAmount & "€", _
+       vbInformation, "Mehrwertsteuer"
+
+
+End Sub
